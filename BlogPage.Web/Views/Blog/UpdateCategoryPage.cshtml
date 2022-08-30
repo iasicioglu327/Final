@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateCategoryPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CategoryDTO
+<h1>Update Category</h1>
+<form method="post" asp-controller="Blog" asp-action="SaveUpdateCategory">
+    <div class="modal-body">
+        <div class="form-group">
+            <input type="hidden" name="ID" class="form-control" asp-for=ID />
+            <input type="Text" name="CategoryName" class="form-control" asp-for=CategoryName />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update Category</button>
+    </div>
+</form>
+

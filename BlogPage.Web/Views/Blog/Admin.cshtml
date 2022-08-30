@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<BlogwithCategoryDTO>
+<h1>Admin</h1>
+
+<div class="row clearfix">
+    <div class="col-lg-4 col-md-12 left-box">
+        <a class="btn btn-primary" asp-controller="Blog" asp-action="AddCategory">Add New Category</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Category Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @ViewBag.categ)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.CategoryName</td>
+                        <td>
+                            <a class="btn btn-danger" asp-route-id="@item.ID" asp-action="DeleteCategory">Delete</a>
+                            <a class="btn alert-secondary" asp-route-id="@item.ID" asp-action="UpdateCategoryPage">Update</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-8 col-md-12 left-box">
+        <a class="btn btn-primary" asp-controller="Blog" asp-action="AddBlog">Add New Blog</a>
+        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Title</td>
+                        <td>@item.Content</td>
+                        <td>@item.Category.CategoryName</td>
+                        <td><img class="img-thumbnail" src="~/pictures/@item.ImagePath" asp-append-version="true" alt="@item.ImagePath" /></td>
+                        <td>
+                            <a class="btn btn-danger" asp-route-id="@item.ID" asp-action="DeleteBlog">Delete</a><br>
+                            <a class="btn alert-secondary" asp-route-id="@item.ID" asp-action="UpdateBlog">Update</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

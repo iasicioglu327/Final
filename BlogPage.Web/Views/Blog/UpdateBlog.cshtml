@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateBlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Update Blog</h1>
+@model BlogDTO
+<form method="post" asp-controller="Blog" asp-action="SaveUpdate" enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="form-group">
+            <input type="hidden" name="ID" class="form-control" asp-for=ID />
+            <input type="Text" asp-for=Title class="form-control" placeholder="Update Blog Title" />
+            <input type="Text" asp-for=Content class="form-control" placeholder="Update Blog Content" />
+            <select asp-for=CategoryId id="CategoryId" class="btn btn-info">
+                @foreach (var item in @ViewBag.categ)
+                {
+                    <option value="@item.ID">@item.CategoryName</option>
+                }</select>
+            <input type="file" name="image" class="form-control"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update Blog</button>
+    </div>
+</form>
+

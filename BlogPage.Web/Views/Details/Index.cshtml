@@ -1,0 +1,82 @@
+﻿
+
+
+@model IPagedList<BlogwithCategoryDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-8 col-md-12 left-box">
+        @foreach (var unit in Model)
+        {
+            <div class="card single_post">
+                <div class="body">
+                    <div class="img-post">
+                        <img class="d-block img-fluidl" src="~/pictures/@unit.ImagePath" alt="@unit.Category.CategoryName" />
+                    </div>
+                    <h3>@unit.Title</h3>
+                </div>
+                <div class="footer">
+                    <div class="actions">
+                        <a asp-controller="Details" asp-action="ContinueReadingBlog" asp-route-id="@unit.ID" class="btn btn-outline-secondary">Continue Reading</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+  
+    <div class="col-lg-4 col-md-12 right-box">
+        <div class="card">
+            <div class="header">
+                <h2>Categories</h2>
+            </div>
+            <div class="body widget">
+                <ul class="list-unstyled categories-clouds m-b-0">
+                    @foreach (var item in @ViewBag.categ)
+                    {
+                        <a asp-route-id="@item.ID" asp-action="Categories">
+                        <li>@item.CategoryName</li></a>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <h3>Most Viewed Blogs</h3>
+            </div>
+            <div class="body widget">
+                <ul class="list-unstyled categories-clouds m-b-0">
+                    @foreach(var item in @ViewBag.blog)
+                    {
+                        <a asp-controller="Details" asp-action="ContinueReadingBlog" asp-route-id=@item.ID>
+                        <li>@item.Title</li></a><br/>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <h3>Tags</h3>
+            </div>
+            <div class="body widget">
+                <ul class="list-unstyled categories-clouds m-b-0">
+                    @foreach(var item in @ViewBag.tag)
+                    {
+                        <a asp-controller="Details" asp-action="Tags" asp-route-id=@item.ID>
+                        <li>@item.TagName</li></a><br/>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+     @Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new{page}), 
+    new PagedListRenderOptions {
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" }
+})
+
+    
